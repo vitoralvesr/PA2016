@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SIC
+namespace SIC.WebApi
 {
     public class BundleConfig
     {

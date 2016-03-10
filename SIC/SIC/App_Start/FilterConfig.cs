@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace SIC
+namespace SIC.WebApi
 {
     public class FilterConfig
     {
