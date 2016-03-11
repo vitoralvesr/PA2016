@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{12EB17AB-6BAC-4202-8816-BEAB12283D9F}</ProjectGuid>
+    <ProjectGuid>{913C8AE0-392F-4F3D-A20F-9C273E350E55}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SIC.Data</RootNamespace>
-    <AssemblyName>SIC.Data</AssemblyName>
+    <RootNamespace>SIC.Repository</RootNamespace>
+    <AssemblyName>SIC.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,10 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrequenciaAlunoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entidades\" />
+    <ProjectReference Include="..\SIC.Repository.Interfaces\SIC.Repository.Interfaces.csproj">
+      <Project>{c3af0c76-9aaa-4bfc-afb7-94049228258c}</Project>
+      <Name>SIC.Repository.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
