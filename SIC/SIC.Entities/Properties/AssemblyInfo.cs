@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Informações gerais sobre um assembly são controladas através do seguinte 
 // conjunto de atributos. Altere o valor destes atributos para modificar a informação
 // associada a um assembly.
-[assembly: AssemblyTitle("SIC.Entities")]
+[assembly: AssemblyTitle("SIC.DTO")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SIC.Entities")]
+[assembly: AssemblyProduct("SIC.DTO")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

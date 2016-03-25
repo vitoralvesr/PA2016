@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SIC.IoC</RootNamespace>
     <AssemblyName>SIC.IoC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,11 +43,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="SimpleInjector\ContainerConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SIC.Business.Interfaces\SIC.Business.Interfaces.csproj">
+      <Project>{3f25ff2c-c91b-4128-aca9-964a080c3400}</Project>
+      <Name>SIC.Business.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIC.Business\SIC.Business.csproj">
+      <Project>{5544a600-b37f-4ef9-83ed-78292d802346}</Project>
+      <Name>SIC.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIC.Repository.Interfaces\SIC.Repository.Interfaces.csproj">
+      <Project>{c3af0c76-9aaa-4bfc-afb7-94049228258c}</Project>
+      <Name>SIC.Repository.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIC.Repository\SIC.Repository.csproj">
+      <Project>{913c8ae0-392f-4f3d-a20f-9c273e350e55}</Project>
+      <Name>SIC.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

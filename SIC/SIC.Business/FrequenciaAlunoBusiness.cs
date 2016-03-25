@@ -21,7 +21,6 @@ namespace SIC.Business
         public FrequenciaAlunoBusiness(IFrequenciaAlunoRepository frequenciaAlunoRepository)
         {
             this._frequenciaAlunoRepository = frequenciaAlunoRepository;
-            //teste
         }
 
         #endregion
