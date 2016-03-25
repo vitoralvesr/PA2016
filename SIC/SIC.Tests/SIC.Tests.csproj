@@ -100,12 +100,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SIC\SIC.WebApi.csproj">
-      <Project>{311654FB-9865-47C6-B75C-DD24D856622A}</Project>
-      <Name>SIC.WebApi</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

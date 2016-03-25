@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -175,10 +176,6 @@
     <ProjectReference Include="..\SIC.Business.Interfaces\SIC.Business.Interfaces.csproj">
       <Project>{3f25ff2c-c91b-4128-aca9-964a080c3400}</Project>
       <Name>SIC.Business.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SIC.Business\SIC.Business.csproj">
-      <Project>{815064b5-5433-490f-9ecd-d365e87ae497}</Project>
-      <Name>SIC.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIC.Repository.Interfaces\SIC.Repository.Interfaces.csproj">
       <Project>{c3af0c76-9aaa-4bfc-afb7-94049228258c}</Project>
