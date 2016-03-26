@@ -45,10 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dapper\DapperHelper.cs" />
+    <Compile Include="DisciplinaTurmaRepository.cs" />
     <Compile Include="FrequenciaAlunoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SIC.Entities\SIC.DTO.csproj">
+      <Project>{25782210-a569-4b82-aefd-c8384ea1529a}</Project>
+      <Name>SIC.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SIC.Repository.Interfaces\SIC.Repository.Interfaces.csproj">
       <Project>{c3af0c76-9aaa-4bfc-afb7-94049228258c}</Project>
       <Name>SIC.Repository.Interfaces</Name>
