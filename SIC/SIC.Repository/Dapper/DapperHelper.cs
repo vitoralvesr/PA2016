@@ -8,36 +8,22 @@ namespace SIC.Repository.Dapper
 {
     public class DapperHelper
     {
-        #region Properties
+        #region [ Propriedades ]
+
+        private const string CONNECTION_STRING = @"Data Source=DANI-PC;Initial Catalog=sic_dsv;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         #endregion
 
-        #region Public Methods
+        #region [ Helpers ]
 
-        /// <summary>
-        /// Realiza uma consulta e retorna uma lista do tipo T.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
-        public static IEnumerable<T> Query<T>(string sql, object parameters = null, int? timeout = null) where T : class
+        public static List<T> List<T>(string sql, object parameters = null, int? timeout = null) where T : class
         {
             using (var db = NewConnection())
             {
-                return db.Query<T>(sql: sql, param: parameters, commandTimeout: timeout);
+                return db.Query<T>(sql: sql, param: parameters, commandTimeout: timeout).ToList();
             }
         }
 
-        /// <summary>
-        /// Realiza uma consulta e retorna um item do tipo T.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
         public static T Get<T>(string sql, object parameters = null, int? timeout = null) where T : class
         {
             using (var db = NewConnection())
@@ -45,15 +31,7 @@ namespace SIC.Repository.Dapper
                 return db.Query<T>(sql: sql, param: parameters, commandTimeout: timeout).FirstOrDefault();
             }
         }
-
-        /// <summary>
-        /// Retorna o valor da primeira linha e primeira coluna da consulta, convertendo o resultado para o tipo T.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
+       
         public static T ExecuteScalar<T>(string sql, object parameters = null, int? timeout = null)
         {
             using (var db = NewConnection())
@@ -61,14 +39,7 @@ namespace SIC.Repository.Dapper
                 return db.ExecuteScalar<T>(sql: sql, param: parameters, commandTimeout: timeout);
             }
         }
-
-        /// <summary>
-        /// Executa um comando no banco de dados.
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
+        
         public static int Exec(string sql, object parameters = null, int? timeout = null)
         {
             using (var db = NewConnection())
@@ -79,11 +50,11 @@ namespace SIC.Repository.Dapper
 
         #endregion
 
-        #region Private Methods
+        #region [ Métodos Privados ]
 
         private static IDbConnection NewConnection()
         {
-            return new SqlConnection("string conexao");
+            return new SqlConnection(CONNECTION_STRING);
         }
 
         #endregion
