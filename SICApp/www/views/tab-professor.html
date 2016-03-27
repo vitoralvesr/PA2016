@@ -1,0 +1,49 @@
+<ion-view view-title="Professor">
+  <ion-content class="padding">
+      <div class="list">
+        <label class="item item-input item-select">
+            <div class="input-label">
+            Turma
+            </div>
+            <select ng-model="turmaSelecionada" ng-options="turma.Identificador for turma in listaTurmas">
+                <option value="">Selecione</option>
+            </select>
+        </label>
+      </div>
+
+      <div class="card padding">
+        <button class="button button-positive button-block">Data</button>
+        <!-- ngIf: selectedDate1 --><div class="text-center padding-top ng-binding">3 de Março, 2016</div><!-- end ngIf: selectedDate1 -->
+      </div>
+      
+      <div class="list">
+        <label class="item item-input item-select">
+            <div class="input-label">
+            Horário
+            </div>
+            <select>
+                <option value="">Selecione</option>
+                <option ng-repeat="horario in listaHorarios">{{horario}}</option>
+            </select>
+            <!-- <select ng-model="horarioSelecionada" ng-options="horario in listaHorarios">
+                <option value="">Selecione</option>
+            </select> -->
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="row stable-bg">
+          <div class="col col-30">Matrícula</div>
+          <div class="col col-50">Nome</div>
+          <div class="col">Presente</div>
+        </div>
+        <div class="row" ng-repeat="aluno in listaAlunos">
+          <div class="col col-30">{{aluno.RegistroAcademico}}</div>
+          <div class="col col-50">{{aluno.Nome}}</div>
+          <div class="col"><ion-checkbox ng-model="aluno.Presente"></ion-checkbox></div>
+        </div>
+      </div>
+
+      <button class="button button-balanced button-full">Salvar</button>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,66 @@
+<style type="text/css">
+.center{
+	text-align: center;
+}
+.no-padding{
+	padding: 0px !important;
+}
+</style>
+<ion-view view-title="Responsável">
+	<ion-content class="padding">
+	<div>
+		<div ng-switch on="numFilhos">
+			<div ng-switch-when="1">
+				<div class="card">
+					<div class="row stable-bg">
+						<div class="col">{{listaFilhos[0].Nome}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="animate-switch" ng-switch-default>
+				<div class="list">
+			        <label class="item item-input item-select">
+			            <div class="input-label">
+			            Filho
+			            </div>
+			            <select ng-model="filhoSelecionado" ng-options="filho.Nome for filho in listaFilhos">
+			                <option value="">Selecione</option>
+			            </select>
+			        </label>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="row stable-bg">
+				<div class="col center">{{filhoSelecionado.Instituicao.Sigla}}</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="row stable-bg">
+				<div class="col center">{{filhoSelecionado.Turma.Identificador}} - {{filhoSelecionado.Turma.Disciplina.Horario}}</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="card col col-50">
+		        <button class="button button-positive button-block">Inicio</button>
+		        <!-- ngIf: selectedDate1 --><div class="text-center padding-top ng-binding">3 de Março, 2016</div><!-- end ngIf: selectedDate1 -->
+	  		</div>
+	  		<div class="card col">
+		        <button class="button button-positive button-block">Fim</button>
+		        <!-- ngIf: selectedDate1 --><div class="text-center padding-top ng-binding">3 de Março, 2016</div><!-- end ngIf: selectedDate1 -->
+	  		</div>
+	  	</div>
+
+	  	<div class="card">
+			<div class="row stable-bg">
+				<div class="col col-50">Disciplinas</div>
+				<div class="col">Presente</div>
+			</div>
+			<div class="row" ng-repeat="aluno in listaAlunos">
+				<div class="col col-30">{{aluno.RegistroAcademico}}</div>
+				<div class="col"><ion-icon ng-model="aluno.Presente"></ion-icon></div>
+			</div>
+		</div>
+	</div>
+	</ion-content>
+</ion-view>
