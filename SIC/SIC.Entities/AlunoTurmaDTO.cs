@@ -7,6 +7,6 @@ namespace SIC.DTO
     {
         public int RA { get; set; }
         public string NomeAluno { get; set; }
-        public int CodDisciplinaTurma { get; set; }
+        public int IdDisciplinaTurma { get; set; }
     }
 }

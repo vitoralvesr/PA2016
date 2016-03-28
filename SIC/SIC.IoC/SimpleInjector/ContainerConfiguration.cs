@@ -13,12 +13,14 @@ namespace SIC.IoC.SimpleInjector
             #region [ Business ]
 
             container.Register<IFrequenciaAlunoBusiness, FrequenciaAlunoBusiness>(Lifestyle.Scoped);
+            container.Register<IDisciplinaTurmaBusiness, DisciplinaTurmaBusiness>(Lifestyle.Scoped);
 
             #endregion
 
             #region [ Repository ]
 
             container.Register<IFrequenciaAlunoRepository, FrequenciaAlunoRepository>(Lifestyle.Scoped);
+            container.Register<IDisciplinaTurmaRepository, DisciplinaTurmaRepository>(Lifestyle.Scoped);
 
             #endregion
         }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisciplinaTurmaBusiness.cs" />
     <Compile Include="FrequenciaAlunoBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -48,6 +49,10 @@
     <ProjectReference Include="..\SIC.Business.Interfaces\SIC.Business.Interfaces.csproj">
       <Project>{3f25ff2c-c91b-4128-aca9-964a080c3400}</Project>
       <Name>SIC.Business.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIC.Entities\SIC.DTO.csproj">
+      <Project>{25782210-a569-4b82-aefd-c8384ea1529a}</Project>
+      <Name>SIC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIC.Repository.Interfaces\SIC.Repository.Interfaces.csproj">
       <Project>{c3af0c76-9aaa-4bfc-afb7-94049228258c}</Project>

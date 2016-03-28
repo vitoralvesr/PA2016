@@ -5,7 +5,7 @@ namespace SIC.DTO
     [Serializable]
     public class TurmaDTO
     {
-        public int CodTurma { get; set; }
+        public int IdTurma { get; set; }
         public string IdentificadorTurma { get; set; }
     }
 }
