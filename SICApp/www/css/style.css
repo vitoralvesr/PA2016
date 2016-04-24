@@ -1,1 +1,15 @@
 /* Empty. Add your own CSS if you like */
+.truncate {
+	width: 80%;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}

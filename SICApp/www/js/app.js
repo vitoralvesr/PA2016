@@ -45,12 +45,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.professor', {
-    url: '/professor',
+  .state('tab.lista', {
+    url: '/lista',
     views: {
-      'tab-professor': {
-        templateUrl: 'views/tab-professor.html',
-        controller: 'ProfessorCtrl'
+      'tab-lista': {
+        templateUrl: 'views/tab-lista.html',
+        controller: 'ListaCtrl'
       }
     }
   })
@@ -66,5 +66,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/professor');
+  $urlRouterProvider.otherwise('/tab/lista');
 });

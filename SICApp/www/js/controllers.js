@@ -1,82 +1,52 @@
 angular.module('starter.controllers', [])
 
-.controller('ProfessorCtrl', function($scope) {
-  $scope.listaTurmas = [{
-    Codigo : 1,
-    Identificador : '8 A',
-    Turno : 'M'
-  },{
-    Codigo : 2,
-    Identificador : '8 B',
-    Turno : 'M'
-  }];
+.controller('ListaCtrl', function($scope, $ionicModal) {
+    $scope.filtersShowing = false;
 
-  $scope.listaHorarios = ['Matematica - 1', 'Matematica - 2', 'Portugues - 3', 'Física - 4'];
+    $scope.listaFilhos = [{
+        id : 1,
+        nome : 'Vitor Alves Rocha'
+    },{
+        id : 2,
+        nome : 'Priscilla Alves Rocha'
+    }];
 
-  $scope.listaAlunos = [{
-    RegistroAcademico : 31223440,
-    Nome : 'Vitor Alves Rocha',
-    Presente : true,
-    CodInstituicao : 1
-  },{
-    RegistroAcademico : 31223441,
-    Nome : 'Daniela Freire Marinho',
-    Presente : true,
-    CodInstituicao : 1
-  }];
+    $scope.listaNotificacoes = [{
+        id : 1,
+        data : '23/04/2016',
+        tipo : {
+            id : 1,
+            descricao : 'Ocorrência'
+        },
+        mensagem : 'Bacon ipsum dolor amet filet mignon chuck ground round andouille tri-tip brisket. Pancetta capicola prosciutto shank. Hamburger alcatra cow ham hock kielbasa capicola. Bacon turkey pork loin hamburger. Picanha sausage drumstick meatball biltong. Flank pancetta beef tri-tip doner jowl shank.',
+        ciente : false
+    },{
+        id : 2,
+        data : '23/04/2016',
+        tipo : {
+            id : 2,
+            descricao : 'Evento escolar'
+        },
+        mensagem : 'Bacon ipsum dolor amet filet mignon chuck ground round andouille tri-tip brisket. Pancetta capicola prosciutto shank. Hamburger alcatra cow ham hock kielbasa capicola. Bacon turkey pork loin hamburger. Picanha sausage drumstick meatball biltong. Flank pancetta beef tri-tip doner jowl shank.',
+        ciente : true
+    }];
+
+    $scope.showFilters = function (arg) {
+        $scope.filtersShowing = !arg;
+    };
+
+    $ionicModal.fromTemplateUrl('templates/modal.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.showModal = function (arg) {
+        $scope.notSelect = arg;
+        $scope.modal.show();
+    }
 })
 
-// .controller('ChatsCtrl', function($scope, Chats) {
-//   // With the new view caching in Ionic, Controllers are only called
-//   // when they are recreated or on app start, instead of every page change.
-//   // To listen for when this page is active (for example, to refresh data),
-//   // listen for the $ionicView.enter event:
-//   //
-//   //$scope.$on('$ionicView.enter', function(e) {
-//   //});
-
-//   $scope.chats = Chats.all();
-//   $scope.remove = function(chat) {
-//     Chats.remove(chat);
-//   };
-// })
-
-// .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-//   $scope.chat = Chats.get($stateParams.chatId);
-// })
-
 .controller('ResponsavelCtrl', function($scope) {
-  $scope.listaFilhos = [{
-    Nome : 'Vitor Alves Rocha',
-    RegistroAcademico : 31223440,
-    Instituicao : {
-      Codigo : 1,
-      RazaoSocial : 'Instituto de Educação de Minas Gerais',
-      CNPJ : '1231231231/123',
-      Sigla : 'IEMG'
-    },
-    Turma : {
-      Identificador : '8 B',
-      Disciplina : {
-        Horario : 1
-      }
-    }
-  },{
-    Nome : 'Daniela Freire Marinho',
-    RegistroAcademico : 31223441,
-    Instituicao : {
-      Codigo : 2,
-      RazaoSocial : 'Centro Universitário UNA',
-      CNPJ : '1231231231/321',
-      Sigla : 'UNA'
-    },
-    Turma : {
-      Identificador : '8 A',
-      Disciplina : {
-        Horario : 2
-      }
-    }
-  }];
 
-  $scope.numFilhos = $scope.listaFilhos.length;
 });

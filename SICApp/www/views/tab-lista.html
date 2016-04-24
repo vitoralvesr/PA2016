@@ -1,0 +1,106 @@
+<style type="text/css">
+
+.card-header{
+    color: #FFFFFF;
+}
+
+div.truncate{
+    font-weight: bold;
+}
+
+#collapse_filtro.ng-hide {
+  opacity: 0;
+}
+
+#collapse_filtro.ng-hide-remove,
+#collapse_filtro.ng-hide-add {
+  display: block !important;
+}
+
+#collapse_filtro.ng-hide-remove {
+  transition: all linear 500ms;
+}
+
+</style>
+<ion-view view-title="Lista de notificações">
+    <ion-content class="padding">
+        <!-- <div class="card padding"> -->
+            <div class="card padding">
+                <div class="item item-divider">
+                    <div class="row" ng-click="showFilters(filtersShowing)">
+                        <div class="col col-50">
+                            <h2>Filtros</h2>
+                        </div>
+                        <div class="col col-50">
+                            <button class="button button-small button-clear button-dark ion-minus right" ></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapse_filtro" class="item item-text-wrap" ng-show="filtersShowing">
+                    <div class="list">
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                            Filho
+                            </div>
+                            <select ng-model="filhosSelecionado" ng-options="filho.nome for filho in listaFilhos">
+                                <option value="">Selecione</option>
+                            </select>
+                        </label>
+                    </div>
+                    <label class="item item-input">
+                        <span class="input-label">Data</span>
+                        <input type="date" >
+                    </label>
+                    <button class="button button-balanced button-full">Filtrar</button>
+                </div>
+            </div>
+            <div class="card padding" ng-repeat="not in listaNotificacoes" ng-class="{'assertive-bg' : not.tipo.id === 1, 'balanced-bg' : not.tipo.id === 2}" ng-click="showModal(not)">
+                <div class="item item-divider" ng-class="{'assertive-bg' : not.tipo.id === 1, 'balanced-bg' : not.tipo.id === 2}">
+                    <div class="row card-header">
+                        <div class="col col-50"><span>{{not.tipo.descricao}}</span></div>
+                        <div class="col col-50"><span class="right">{{not.data}}</span></div>
+                    </div>
+                </div>
+                <div class="item item-text-wrap">
+                    <div class="row">
+                        <div class="col truncate">
+                            {{not.mensagem}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </ion-content>
+
+    <script id="templates/modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-dark">
+            <h1 class="title">Notificação</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">Fechar</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <div class="card padding">
+                <div class="item item-divider" ng-class="{'assertive-bg' : notSelect.tipo.id === 1, 'balanced-bg' : notSelect.tipo.id === 2}">
+                    <div class="row">
+                        <div class="col col-50"><span>{{notSelect.tipo.descricao}}</span></div>
+                        <div class="col col-50"><span class="right">{{notSelect.data}}</span></div>
+                    </div>
+                </div>
+                <div class="item item-text-wrap">
+                    <div class="row">
+                        <div class="col"><strong>Mensagem</strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><span>{{notSelect.mensagem}}</span></div>
+                    </div>
+                </div>
+                <div class="item item-divider">
+                    <ion-list>
+                        <ion-radio ng-model="notSelect.ciente" ng-value="true" ng-click="showObsDiv()">Estou Ciente</ion-radio>
+                    </ion-list>
+                </div>
+            </div>
+        </ion-content>
+    </ion-modal-view>
+    </script>
+</ion-view>
