@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'onezone-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -67,4 +67,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/lista');
+})
+.filter('customFilter', function() {
+    return function(objArray) {
+      console.log(objArray);
+        var filter = $scope.filters;
+        var newArray = [];
+
+        for (var i = 0; i < objArray.length; i++) {
+            if (filter.filho !== null && objArray[i].codigoAluno === filter.filho.id) {
+                newArray.push(objArray[i]);
+            };
+        }
+        
+        return newArray;
+    };
 });

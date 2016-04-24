@@ -6,10 +6,48 @@
   	text-overflow: ellipsis;
 }
 
+.wrap {
+  	white-space: normal;
+}
+
+.center {
+	text-align: center;
+}
+
 .right {
 	float: right;
+	text-align: right;
 }
 
 .left {
 	float: left;
+	text-align: left;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    overflow:hidden;
+    border: 1px solid #EFF1F5;
+}
+
+.card-header{
+    color: #FFFFFF;
+}
+
+div.truncate{
+    font-weight: bold;
+}
+
+#collapse_filtro.ng-hide {
+    opacity: 0;
+}
+
+#collapse_filtro.ng-hide-remove,
+#collapse_filtro.ng-hide-add {
+    display: block !important;
+}
+
+#collapse_filtro.ng-hide-remove {
+    transition: all linear 500ms;
 }
