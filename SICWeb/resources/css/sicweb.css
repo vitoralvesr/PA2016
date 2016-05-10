@@ -1,0 +1,46 @@
+/*Helpers*/
+.hide {
+    display: none !important;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.center, .center-align {
+    text-align: center;
+}
+
+.left {
+    float: left !important;
+}
+
+.right {
+    float: right !important;
+}
+
+.divided {
+	border-right: 0.1rem solid #ccc;
+}
+
+/*-----------------------------*/
+
+textarea {
+    resize: vertical;
+}
+
+tr.tab-rows {
+    cursor: pointer;
+}
+
+.mb-1_5 {
+	margin-bottom: 1.5rem;
+}
+
+.mb-2 {
+	margin-bottom: 2rem;
+}
