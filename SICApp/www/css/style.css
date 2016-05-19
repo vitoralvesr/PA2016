@@ -1,3 +1,7 @@
+/*CUSTOM COLORS*/
+.concrete-bg {
+  background-color: #95a5a6;
+}
 /* Empty. Add your own CSS if you like */
 .truncate {
 	width: 80%;
@@ -50,4 +54,8 @@ div.truncate{
 
 #collapse_filtro.ng-hide-remove {
     transition: all linear 500ms;
+}
+
+.item {
+  padding: 0;
 }

@@ -1,45 +1,59 @@
-angular.module('SICWeb', [])
-.controller('SICWebController', function($scope) {
-    $scope.items = [{
-        id: 1,
-        label: 'Motivo 1',
-        subItem: { name: 'Motivo 1' }
-    }, {
-        id: 2,
-        label: 'Motivo 2',
-        subItem: { name: 'Motivo 2' }
-    }];
+angular.module('SICWeb', ['angucomplete'])
+.controller('SICWebController', function($scope, $http, $document) {
+    $scope.formulario = novo_formulario();
+    
+    $scope.buscaAlunos = function () {
+        var url = "http://notificandoapp.azurewebsites.net/api/aluno/ConsultarAluno/";
 
-    $scope.notifications = [{
-        id: 1,
-        student: 'Aluno 1',
-        message: 'Mensagem 1',
-        date: '06/05/2016',
-        title: 'Teste 1',
-        reason: 1,
-        aware: true,
-        answer: null
-    }, {
-        id: 2,
-        student: 'Aluno 2',
-        message: 'Mensagem 2',
-        date: '06/05/2016',
-        title: 'Teste 2',
-        reason: 2,
-        aware: false,
-        answer: 'Resposta 2'
-    }];
-
-    $scope.clearForm = function () {
-        // reset form
+        $http.get(url)
+        .then(function(response) {
+            $scope.listaAlunos = response.data;
+            console.log('success');
+        }, function(response) {
+            console.log(response);
+        });
     }
 
-    $scope.sendNotification = function () {
+    $scope.buscaTiposNotificacao = function () {
+        var url = "http://notificandoapp.azurewebsites.net/api/tipoNotificacao/ConsultarTipoNotificacao/";
+
+        $http.get(url)
+        .then(function(response) {
+            $scope.listaTipoNotificacoes = response.data;
+        },function(response) {
+            console.log(response);
+        });
+    }
+
+    $scope.limparFormulario = function () {
+        $scope.formulario = novo_formulario();
+    }
+
+    $scope.enviarNotificacao = function () {
         // send notification
     }
 
-    $scope.openModal = function (not) {
+    $scope.abrirModal = function (not) {
         $scope.notification = not;
         $('#modal_notification').modal();
     }
+
+    $document.ready(function(){
+        $scope.buscaAlunos();
+        $scope.buscaTiposNotificacao();
+        // $scope.buscaNotificacoes();
+    });
 });
+
+function novo_formulario () {
+    return {
+        Aluno: null,
+        IdTipoNotificacao: null
+    };
+}
+
+function nova_pesquisa () {
+    return {
+        Aluno: null
+    };
+}

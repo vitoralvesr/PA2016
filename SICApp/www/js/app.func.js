@@ -1,11 +1,14 @@
-var textarea = document.querySelector('textarea');
+function montarParametros (filtros) {
+	var parametros = '?';
 
-textarea.addEventListener('keydown', autosize);
-             
-function autosize(){
-	var el = this;
-	setTimeout(function() {
-		el.style.cssText = 'height:auto; padding:0';
-		el.style.cssText = 'height:' + el.scrollHeight + 'px';
-	},0);
+    for(var attr in filtros){
+        if (filtros[attr] !== undefined && filtros[attr] !== null) {
+            if (parametros !== '?') {
+                parametros += '&';
+            }
+
+            parametros += (attr + '=' + filtros[attr]);
+        }
+    }
+    return parametros === '?' ? null : parametros;
 }

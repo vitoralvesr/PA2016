@@ -1,5 +1,10 @@
 <ion-view view-title="Lista de notificações">
     <ion-content class="padding">
+        <!-- <div class="row no-padding">
+            <div class="card col">
+                <button class="button button-positive button-block" ng-click="add()">Local</button>
+            </div>
+        </div> -->
         <div class="card padding border-balanced">
             <div class="item item-divider">
                 <div class="row" ng-click="showFilters(filtersShowing)">
@@ -15,39 +20,54 @@
                 <div class="list">
                     <label class="item item-input item-select">
                         <div class="input-label">
+                        Tipo
+                        </div>
+                        <select ng-model="filtros.idTipoNotificacao" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes" ng-change="aplicarFiltros()">
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="list">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
                         Filho
                         </div>
-                        <select ng-model="filters.filho" ng-options="filho.nome for filho in childList">
+                        <select ng-model="filtros.idAluno" ng-options="aluno.IdAluno as aluno.Nome for aluno in listaAlunos" ng-change="aplicarFiltros()">
                             <option value="">Selecione</option>
                         </select>
                     </label>
                 </div>
                 <onezone-datepicker datepicker-object="onezoneDatepicker">
                     <button class="button button-block button-outline button-positive show-onezone-datepicker">
-                        {{onezoneDatepicker.date | date:'dd/MM/yyyy'}} 
+                        {{onezoneDatepicker.date | date:'dd/MM/yyyy'}}
                     </button>
                 </onezone-datepicker>
             </div>
         </div>
-        <div class="card padding" ng-repeat="not in notificationList | orderBy: 'ciente'" ng-class="{'assertive-bg' : not.tipo.id === 1, 'balanced-bg' : not.tipo.id === 2, 'positive-bg' : not.tipo.id === 3}" ng-click="showModal(not)">
-            <div class="item item-divider" ng-class="{'assertive-bg' : not.tipo.id === 1, 'balanced-bg' : not.tipo.id === 2, 'positive-bg' : not.tipo.id === 3}">
+        <div class="card padding center concrete-bg" ng-show="!listaNotificacoes.length"><span>{{mensagemListaVazia}}</span></div>
+        <div class="card padding" ng-repeat="not in listaNotificacoes | orderBy: 'ResponsavelCiente'" ng-class="{'assertive-bg' : not.IdTipoNotificacao === 1, 'balanced-bg' : not.IdTipoNotificacao === 2, 'positive-bg' : not.IdTipoNotificacao === 3}" ng-click="abrirNotificacao(not)">
+            <div class="item item-divider" ng-class="{'assertive-bg' : not.IdTipoNotificacao === 1, 'balanced-bg' : not.IdTipoNotificacao === 2, 'positive-bg' : not.IdTipoNotificacao === 3}">
                 <div class="row card-header">
-                    <div class="col col-50"><span>{{not.tipo.descricao}}</span></div>
-                    <div class="col col-50"><span class="right">{{not.data}}</span></div>
+                    <div class="col col-50"><span>{{not.Assunto}}</span></div>
+                    <div class="col col-50"><span class="right">{{not.DataOcorrencia | date:'dd/MM/yyyy'}}</span></div>
                 </div>
             </div>
             <div class="item item-text-wrap">
                 <div class="row">
                     <div class="col truncate">
-                        {{not.mensagem}}
+                        {{not.DescricaoNotificacao}}
                     </div>
                 </div>
             </div>
             <div class="item item-divider center" ng-if="!not.ciente" style="font-size: 0.8rem">
-                <span>Você ainda não visualizou esta notificação <i class="ion-information-circled"></i></span>
+                <span>Notificação não visualizada <i class="ion-information-circled"></i></span>
             </div>
         </div>
     </ion-content>
+
+    <!-- <div class="col col-50">
+        <b>Código: {{notSelect.IdNotificacao}}</b>
+    </div> -->
 
     <script id="templates/modal.html" type="text/ng-template">
     <ion-modal-view>
@@ -57,15 +77,13 @@
         </ion-header-bar>
         <ion-content class="padding">
             <div class="card padding">
-                <div class="item item-divider" ng-class="{'assertive-bg light' : notSelect.tipo.id === 1, 'balanced-bg' : notSelect.tipo.id === 2, 'positive-bg' : notSelect.tipo.id === 3}">
+                <div class="item item-divider" ng-class="{'assertive-bg light' : notSelect.IdTipoNotificacao === 1, 'balanced-bg' : notSelect.IdTipoNotificacao === 2, 'positive-bg' : notSelect.IdTipoNotificacao === 3}">
                     <div class="row">
-                        <div class="col">
-                            <b>Código: {{notSelect.id}}</b>
-                        </div>
+                        <div class="col col-50"><span>Tipo</span></div>
                     </div>
                     <div class="row">
-                        <div class="col col-50"><span>{{notSelect.tipo.descricao}}</span></div>
-                        <div class="col col-50"><span class="right">{{notSelect.data}}</span></div>
+                        <div class="col col-50"><span>{{notSelect.Assunto}}</span></div>
+                        <div class="col col-50"><span class="right">{{notSelect.DataOcorrencia | date:'dd/MM/yyyy'}}</span></div>
                     </div>
                 </div>
                 <div class="item item-text-wrap">
@@ -73,11 +91,11 @@
                         <div class="col"><strong>Mensagem</strong></div>
                     </div>
                     <div class="row">
-                        <div class="col"><span>{{notSelect.mensagem}}</span></div>
+                        <div class="col"><span>{{notSelect.DescricaoNotificacao}}</span></div>
                     </div>
                 </div>
                 <div class="item item-divider">
-                    <ion-radio ng-model="notSelect.ciente" ng-value="true" ng-click="showModalObs()">Estou Ciente</ion-radio>
+                    <ion-radio ng-model="respostaNotificacao.ResponsavelCiente" ng-value="true" ng-disabled="respostaNotificacao.ResponsavelCiente" ng-click="showModalObs()">Estou Ciente</ion-radio>
                 </div>
             </div>
         </ion-content>
@@ -88,7 +106,6 @@
     <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-dark">
             <h1 class="title">Observação</h1>
-            <button class="button button-clear button-primary ion-close" ng-click="modalObs.hide()"></button>
         </ion-header-bar>
         <ion-content class="padding">
             <div class="card padding">
@@ -103,13 +120,13 @@
                     <div class="row responsive-sm">
                         <div class="col">
                             <ion-textarea>
-                                <textarea class="text-input" autocomplete="off" autocorrect="off" rows="10"></textarea>
+                                <textarea class="text-input" autocomplete="off" autocorrect="off" rows="10" ng-model="respostaNotificacao.RespostaNotificacao" placeholder="(opcional)"></textarea>
                             </ion-textarea>
                         </div>
                     </div>
                 </div>
                 <div class="item item-divider">
-                    <button class="button button-full button-balanced" ng-click="sendMessage()">Enviar</button>
+                    <button class="button button-full button-balanced" ng-click="enviarReposta()">Enviar</button>
                 </div>
             </div>
         </ion-content>

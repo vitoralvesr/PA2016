@@ -22,6 +22,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+#WebStorm directories
+.idea/
+
 # Visual Studio 2015 cache/options directory
 .vs/
 
@@ -171,7 +174,7 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
-node_modules/
+# node_modules/
 orleans.codegen.cs
 
 # RIA/Silverlight projects

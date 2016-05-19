@@ -5,10 +5,12 @@
     <title>SICWeb</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../resources/css/sicweb.css">
+    <link rel="stylesheet" href="../lib/angucomplete-master/css/angucomplete.css">
 
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../lib/angucomplete-master/js/angucomplete.js"></script>
 
     <script src="../resources/js/sicweb.js"></script>
     <script src="../controllers/app.js"></script>
@@ -31,7 +33,14 @@
                         </div>
                         <div class="form-group">
                             <label for="aluno">Aluno</label>
-                            <input type="text" class="form-control" id="aluno">
+                            <angucomplete id="aluno"
+                                pause="100"
+                                selectedobject="formulario.Aluno"
+                                localdata="listaAlunos"
+                                searchfields="Nome"
+                                titlefield="Nome"
+                                minlength="1"
+                                inputclass="form-control"/>
                         </div>
 
                         <div class="form-group">
@@ -41,17 +50,17 @@
 
                         <div class="form-group">
                             <label for="motivo">Motivo</label>
-                            <select id="motivo" class="form-control mb-1_5" ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select>
+                            <select id="motivo" class="form-control mb-1_5" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes track by tipo.IdTipoNotificacao" ng-model="formulario.IdTipoNotificacao"></select>
                         </div>
 
                         <textarea class="form-control mb-1_5" rows="5" placeholder="Escreva aqui sua mensagem..."></textarea>
 
                         <div class="row">
                             <div class="col-xs-6">
-                                <button type="button" class="btn btn-warning left" ng-click="clearForm()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-warning left" ng-click="limparFormulario()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
                             </div>
                             <div class="col-xs-6">
-                                <button type="button" class="btn btn-success right" ng-click="sendNotification()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-success right" ng-click="enviarNotificacao()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
                             </div>
                         </div>
                     </form>
@@ -67,8 +76,15 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="aluno">Aluno</label>
-                                    <input type="text" class="form-control" id="aluno">
+                                    <label for="alunoP">Aluno</label>
+                                    <angucomplete id="alunoP"
+                                        pause="100"
+                                        selectedobject="pesquisa.Aluno"
+                                        localdata="listaAlunos"
+                                        searchfields="Nome"
+                                        titlefield="Nome"
+                                        minlength="1"
+                                        inputclass="form-control"/>
                                 </div>
                             </div>
 
@@ -98,7 +114,7 @@
                                         <th>Motivo</th>
                                         <th>Resposta</th>
                                     </tr>
-                                    <tr class="tab-rows" ng-repeat="not in notifications track by not.id" ng-class="{'success' : not.aware, 'danger' : !not.aware}" ng-click="openModal(not)">
+                                    <tr class="tab-rows" ng-repeat="not in notifications track by not.id" ng-class="{'success' : not.aware, 'danger' : !not.aware}" ng-click="abrirModal(not)">
                                         <td>{{not.date}}</td>
                                         <td>{{not.title}}</td>
                                         <td>{{not.reason}}</td>
