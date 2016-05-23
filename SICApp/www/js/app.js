@@ -68,19 +68,4 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/lista');
-})
-.filter('customFilter', function() {
-    return function(objArray) {
-      console.log(objArray);
-        var filter = $scope.filters;
-        var newArray = [];
-
-        for (var i = 0; i < objArray.length; i++) {
-            if (filter.filho !== null && objArray[i].codigoAluno === filter.filho.id) {
-                newArray.push(objArray[i]);
-            };
-        }
-
-        return newArray;
-    };
 });
