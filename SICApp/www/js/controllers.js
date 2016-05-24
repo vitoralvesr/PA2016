@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('starter.controllers', [])
 .controller('ListaCtrl', function($scope, $http, $document, $ionicModal, $httpFunctions, $format, $timeout) {
     //VAI VIR DO LOGIN
@@ -6,24 +8,22 @@ angular.module('starter.controllers', [])
     $scope.filtros = {};
     $scope.respostaNotificacao = nova_reposta();
 
-    $scope.mensagemListaVazia = 'Nenhum registro foi encontrado';
+    $scope.mensagemListaVazia = 'Nenhuma notificação foi encontrada!';
 
-    $scope.onezoneDatepicker = {
-        date: new Date(), // MANDATORY
-        mondayFirst: false,
-        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-        daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
-        showTodayButton: true,
-        callback: function(value){
-            $format.formatDate(value, function (val) {
-                console.log(val);
-                $scope.filtros.dtInicial = val;
-                console.log($scope.filtros.dtInicial);
-            });
+    // $scope.onezoneDatepicker = {
+    //     date: new Date(), // MANDATORY
+    //     mondayFirst: false,
+    //     months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    //     daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+    //     showTodayButton: true,
+    //     callback: function(value){
+    //         $format.formatDate(value, function (val) {
+    //             $scope.filtros.dtInicial = val;
+    //         });
 
-            $scope.aplicarFiltros();
-        }
-    };
+    //         $scope.aplicarFiltros();
+    //     }
+    // };
 
     $scope.aplicarFiltros = function () {
         $scope.buscaNotificacoes($format.parameters($scope.filtros));
@@ -35,7 +35,6 @@ angular.module('starter.controllers', [])
         $httpFunctions.get(url, {},
             function (response) {
                 $scope.listaTipoNotificacoes = response.data;
-                console.log(angular.toJson($scope.listaTipoNotificacoes));
             },
             function (error) {
                 console.log(error);
@@ -52,7 +51,6 @@ angular.module('starter.controllers', [])
         $httpFunctions.get(url, params,
             function (response) {
                 $scope.listaAlunos = response.data;
-                console.log(angular.toJson($scope.listaAlunos));
             },
             function (error) {
                 console.log(error);
@@ -66,7 +64,6 @@ angular.module('starter.controllers', [])
         $httpFunctions.get(url, params,
             function (response) {
                 $scope.listaNotificacoes = response.data;
-                console.log(angular.toJson($scope.listaNotificacoes));
             },
             function (error) {
                 console.log(error);
@@ -115,19 +112,32 @@ angular.module('starter.controllers', [])
     $scope.enviarReposta = function () {
         var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ResponderNotificacao/";
 
-        $http.post(url, $scope.respostaNotificacao)
-        .then(function(response) {
-            console.log('Sucesso');
-            console.log(angular.toJson(response));
-        }, function(response) {
-            console.log('Erro');
-            console.log(response);
-        });
+        $httpFunctions.post(url, $scope.respostaNotificacao,
+            function (response) {
+                console.log(response);
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
 
         $scope.modalObs.hide();
         $scope.modal.hide();
         $scope.respostaNotificacao = nova_reposta();
         $scope.aplicarFiltros();
+    }
+
+    $scope.mudaData = function () {
+        $format.formatDate($scope.dataBusca, function (val) {
+            $scope.filtros.dtInicial = val;
+            $scope.aplicarFiltros();
+        });
+    }
+
+    $scope.startView = function () {
+        var dt = new Date();
+        $scope.dataBusca = dt;
+        $scope.mudaData();
     }
 })
 

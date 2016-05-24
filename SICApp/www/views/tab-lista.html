@@ -1,4 +1,4 @@
-<ion-view view-title="Lista de notificações">
+<ion-view view-title="Lista de notificações" ng-app-loaded>
     <ion-content class="padding">
         <!-- <div class="row no-padding">
             <div class="card col">
@@ -37,11 +37,17 @@
                         </select>
                     </label>
                 </div>
-                <onezone-datepicker datepicker-object="onezoneDatepicker">
+                <div class="list">
+                    <label class="item item-input">
+                        <span class="input-label">Data</span>
+                        <input class="right" type="date" ng-model="dataBusca" ng-change="aplicarFiltros()">
+                    </label>
+                </div>
+                <!-- <onezone-datepicker datepicker-object="onezoneDatepicker">
                     <button class="button button-block button-outline button-positive show-onezone-datepicker">
                         {{onezoneDatepicker.date | date:'dd/MM/yyyy'}}
                     </button>
-                </onezone-datepicker>
+                </onezone-datepicker> -->
             </div>
         </div>
         <div class="card padding center concrete-bg" ng-show="!listaNotificacoes.length"><span>{{mensagemListaVazia}}</span></div>

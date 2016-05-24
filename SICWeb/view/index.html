@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <title>SICWeb</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/sicweb.css">
+    <link rel="stylesheet" href="../lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../lib/angucomplete-master/css/angucomplete.css">
+    <link rel="stylesheet" href="../resources/css/sicweb.css">
 
-    <script src="../node_modules/angular/angular.min.js"></script>
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../lib/angucomplete-master/js/angucomplete.js"></script>
-
-    <script src="../resources/js/sicweb.js"></script>
-    <script src="../controllers/app.js"></script>
 </head>
 <body>
     <div ng-controller="SICWebController as sic">
@@ -31,37 +25,34 @@
                         <div class="page-header">
                             <h3>Nova <small>notificação</small></h3>
                         </div>
-                        <div class="form-group">
-                            <label for="aluno">Aluno</label>
-                            <angucomplete id="aluno"
-                                pause="100"
-                                selectedobject="formulario.Aluno"
-                                localdata="listaAlunos"
-                                searchfields="Nome"
-                                titlefield="Nome"
-                                minlength="1"
-                                inputclass="form-control"/>
-                        </div>
+                        <div class="row ml-1">
+                                <div class="form-group">
+                                    <label for="aluno">Aluno</label>
+                                    <angucomplete id="aluno"
+                                        pause="100"
+                                        selectedobject="formulario.Aluno"
+                                        localdata="listaAlunos"
+                                        searchfields="Nome"
+                                        titlefield="Nome"
+                                        minlength="1"
+                                        inputclass="form-control"/>
+                                </div>
 
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
-                            <input type="text" class="form-control" id="titulo" placeholder="ex.: Conversa paralela em sala de aula">
-                        </div>
+                                <div class="form-group">
+                                    <label for="titulo">Título</label>
+                                    <input type="text" class="form-control" id="titulo" placeholder="ex.: Conversa paralela em sala de aula">
+                                </div>
 
-                        <div class="form-group">
-                            <label for="motivo">Motivo</label>
-                            <select id="motivo" class="form-control mb-1_5" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes track by tipo.IdTipoNotificacao" ng-model="formulario.IdTipoNotificacao"></select>
-                        </div>
+                                <div class="form-group">
+                                    <label for="motivo">Motivo</label>
+                                    <select id="motivo" class="form-control mb-1_5" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes track by tipo.IdTipoNotificacao" ng-model="formulario.IdTipoNotificacao"></select>
+                                </div>
 
-                        <textarea class="form-control mb-1_5" rows="5" placeholder="Escreva aqui sua mensagem..."></textarea>
+                                <textarea class="form-control " rows="5" placeholder="Escreva aqui sua mensagem..."></textarea>
 
-                        <div class="row">
-                            <div class="col-xs-6">
                                 <button type="button" class="btn btn-warning left" ng-click="limparFormulario()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
-                            </div>
-                            <div class="col-xs-6">
-                                <button type="button" class="btn btn-success right" ng-click="enviarNotificacao()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
-                            </div>
+                                <button type="button" class="btn btn-success right mr-1_9" ng-click="enviarNotificacao()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+
                         </div>
                     </form>
                 </div>
@@ -72,9 +63,7 @@
                             <h3>Consultar <small>notificações</small></h3>
                         </div>
 
-
-                        <div class="row">
-                            <div class="col-xs-12">
+                        <div class="row ml-1">
                                 <div class="form-group">
                                     <label for="alunoP">Aluno</label>
                                     <angucomplete id="alunoP"
@@ -86,27 +75,19 @@
                                         minlength="1"
                                         inputclass="form-control"/>
                                 </div>
-                            </div>
-
-                            <div class="col-xs-6">
+                            
                                 <div class="form-group">
                                     <label for="inicio">Início</label>
-                                    <input type="date" class="form-control" id="inicio" />
+                                    <input type="text" class="form-control" id="inicio" />
                                 </div>
-                            </div>
-
-                            <div class="col-xs-6">
+                            
                                 <div class="form-group">
                                     <label for="fim">Fim</label>
-                                    <input type="date" class="form-control" id="fim" />
+                                    <input type="text" class="form-control" id="fim" />
                                 </div>
-                            </div>
-
-                            <div class="col-xs-12 mb-1_5">
+                            
                                 <button type="button" class="btn btn-primary right" ng-click="searchNotifications()">Pesquisar <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </div>
-
-                            <div class="col-xs-12">
+                            
                                 <table class="table table-hover table-condensed">
                                     <tr>
                                         <th>Data</th>
@@ -121,7 +102,6 @@
                                         <td>{{not.answer === null || not.answer === "" ? "--" : not.answer}}</td>
                                     </tr>
                                 </table>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -166,10 +146,21 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                         </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../lib/angucomplete-master/js/angucomplete.js"></script>
+    <script src="../lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="../lib/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+    <script src="../resources/js/sicweb.js"></script>
+    <script src="../services/http.func.js"></script>
+    <script src="../directives/app.loaded.js"></script>
+    <script src="../controllers/app.js"></script>
 </body>
 </html>

@@ -59,3 +59,16 @@ div.truncate{
 .item {
   padding: 0;
 }
+
+.input-date {
+  padding-right: 1.8rem !important;
+}
+
+/*WIDTHS*/
+.input-label {
+  width: 15% !important;
+}
+
+.item-select select {
+  width: 85%;
+}

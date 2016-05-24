@@ -1,4 +1,4 @@
-angular.module('SICWeb', ['angucomplete'])
+angular.module('SICWeb', ['angucomplete', 'directives', 'services'])
 .controller('SICWebController', function($scope, $http, $document) {
     $scope.formulario = novo_formulario();
     
@@ -8,7 +8,6 @@ angular.module('SICWeb', ['angucomplete'])
         $http.get(url)
         .then(function(response) {
             $scope.listaAlunos = response.data;
-            console.log('success');
         }, function(response) {
             console.log(response);
         });
