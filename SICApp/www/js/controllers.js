@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter.controllers', [])
-.controller('ListaCtrl', function($scope, $http, $document, $ionicModal, $httpFunctions, $format, $timeout) {
+.controller('ListaCtrl', function($scope, $http, $document, $window, $ionicModal, $httpFunctions, $format, $timeout, $cordovaLocalNotification) {
     //VAI VIR DO LOGIN
     $scope.IdResponsavel = 3;
 
@@ -9,6 +9,41 @@ angular.module('starter.controllers', [])
     $scope.respostaNotificacao = nova_reposta();
 
     $scope.mensagemListaVazia = 'Nenhuma notificação foi encontrada!';
+
+    $scope.add = function() {
+        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
+        var teste = {};
+        teste.idNotificacao = 13;
+        var not = null;
+
+        $httpFunctions.get(url, $format.parameters(teste),
+            function (response) {
+                not = response.data[0];
+                
+                var alarmTime = new Date();
+                alarmTime.setMinutes(alarmTime.getMinutes() + 0.1);
+                $cordovaLocalNotification.add({
+                    id: 1,
+                    date: alarmTime,
+                    message: "Ocorrência",
+                    title: "Notificando",
+                    autoCancel: true,
+                    data: not
+                }).then(function () {
+                    //after send
+                });
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    };
+ 
+    $scope.isScheduled = function() {
+        $cordovaLocalNotification.isScheduled(1).then(function(isScheduled) {
+            alert("Notification 1 Scheduled: " + isScheduled);
+        });
+    }
 
     $scope.dtInicial = {
         date: new Date(), // MANDATORY

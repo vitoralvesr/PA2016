@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="../resources/css/angucomplete-alt.css">
     <link rel="stylesheet" href="../bower_components/angular-notify/dist/angular-notify.min.css">
     <link rel="stylesheet" href="../resources/css/sicweb.css">
+    <style type="text/css">
+    /*Vertical Divider*/
+.row.vdivide[class*='col-']:first-child:after {
+    background: #e0e0e0;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}
+</style>
 </head>
 <body>
     <div ng-controller="SICWebController as sic">
