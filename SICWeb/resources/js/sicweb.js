@@ -5,7 +5,6 @@
 	    clearBtn: true,
 	    orientation: "bottom auto",
 	    multidate: false,
-	    daysOfWeekDisabled: "0,6",
 	    autoclose: true,
 	    todayHighlight: true
 	};

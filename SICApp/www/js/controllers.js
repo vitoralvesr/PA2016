@@ -10,20 +10,35 @@ angular.module('starter.controllers', [])
 
     $scope.mensagemListaVazia = 'Nenhuma notificação foi encontrada!';
 
-    // $scope.onezoneDatepicker = {
-    //     date: new Date(), // MANDATORY
-    //     mondayFirst: false,
-    //     months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    //     daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
-    //     showTodayButton: true,
-    //     callback: function(value){
-    //         $format.formatDate(value, function (val) {
-    //             $scope.filtros.dtInicial = val;
-    //         });
+    $scope.dtInicial = {
+        date: new Date(), // MANDATORY
+        mondayFirst: false,
+        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+        showTodayButton: true,
+        callback: function(value){
+            $format.formatDate(value, function (val) {
+                $scope.filtros.dtInicial = val;
+            });
 
-    //         $scope.aplicarFiltros();
-    //     }
-    // };
+            $scope.aplicarFiltros();
+        }
+    };
+
+    $scope.dtFinal = {
+        date: new Date(), // MANDATORY
+        mondayFirst: false,
+        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+        showTodayButton: true,
+        callback: function(value){
+            $format.formatDate(value, function (val) {
+                $scope.filtros.dtFinal = val;
+            });
+
+            $scope.aplicarFiltros();
+        }
+    };
 
     $scope.aplicarFiltros = function () {
         $scope.buscaNotificacoes($format.parameters($scope.filtros));
@@ -149,7 +164,6 @@ function nova_reposta () {
     return {
         IdNotificacao: null,
         ResponsavelCiente: false,
-        RespostaNotificacao: null,
-        IdNotificacaoRespostaPai: null
+        RespostaNotificacao: null
     };
 }

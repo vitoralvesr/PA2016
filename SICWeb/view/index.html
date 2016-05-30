@@ -5,9 +5,9 @@
     <title>SICWeb</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="../lib/angucomplete-master/css/angucomplete.css">
+    <link rel="stylesheet" href="../resources/css/angucomplete-alt.css">
+    <link rel="stylesheet" href="../bower_components/angular-notify/dist/angular-notify.min.css">
     <link rel="stylesheet" href="../resources/css/sicweb.css">
-
 </head>
 <body>
     <div ng-controller="SICWebController as sic">
@@ -19,39 +19,42 @@
             </div>
         </nav>
         <div class="container">
-            <div class="row">
-                <div class="col-xs-6 divided">
+            <div class="row vdivide">
+                <div class="col-xs-6">
                     <form>
                         <div class="page-header">
                             <h3>Nova <small>notificação</small></h3>
                         </div>
                         <div class="row ml-1">
-                                <div class="form-group">
-                                    <label for="aluno">Aluno</label>
-                                    <angucomplete id="aluno"
-                                        pause="100"
-                                        selectedobject="formulario.Aluno"
-                                        localdata="listaAlunos"
-                                        searchfields="Nome"
-                                        titlefield="Nome"
-                                        minlength="1"
-                                        inputclass="form-control"/>
-                                </div>
+                            <div class="form-group">
+                                <label for="aluno_value">Aluno</label>
+                                <angucomplete-alt
+                                    id="aluno"
+                                    pause="100"
+                                    selected-object="AlunoSelecionado"
+                                    local-data="listaAlunos"
+                                    search-fields="Nome"
+                                    title-field="Nome"
+                                    minlength="1"
+                                    input-class="form-control"/>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="titulo">Título</label>
-                                    <input type="text" class="form-control" id="titulo" placeholder="ex.: Conversa paralela em sala de aula">
-                                </div>
+                            <div class="form-group">
+                                <label for="titulo">Título</label>
+                                <input type="text" class="form-control" id="titulo" placeholder="ex.: Conversa paralela em sala de aula" ng-model="formulario.Assunto">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="motivo">Motivo</label>
-                                    <select id="motivo" class="form-control mb-1_5" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes track by tipo.IdTipoNotificacao" ng-model="formulario.IdTipoNotificacao"></select>
-                                </div>
+                            <div class="form-group">
+                                <label for="motivo">Motivo</label>
+                                <select id="motivo" class="form-control mb-1_5" ng-options="tipo.IdTipoNotificacao as tipo.Descricao for tipo in listaTipoNotificacoes track by tipo.IdTipoNotificacao" ng-model="formulario.IdTipoNotificacao">
+                                    <option value="" disabled>Selecione</option>
+                                </select>
+                            </div>
 
-                                <textarea class="form-control " rows="5" placeholder="Escreva aqui sua mensagem..."></textarea>
+                            <textarea class="form-control " rows="5" placeholder="Escreva aqui sua mensagem..." ng-model="formulario.Descricao"></textarea>
 
-                                <button type="button" class="btn btn-warning left" ng-click="limparFormulario()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
-                                <button type="button" class="btn btn-success right mr-1_9" ng-click="enviarNotificacao()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-success" ng-click="enviarNotificacao()">Enviar <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-warning" ng-click="limparFormulario()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
 
                         </div>
                     </form>
@@ -64,44 +67,62 @@
                         </div>
 
                         <div class="row ml-1">
-                                <div class="form-group">
-                                    <label for="alunoP">Aluno</label>
-                                    <angucomplete id="alunoP"
-                                        pause="100"
-                                        selectedobject="pesquisa.Aluno"
-                                        localdata="listaAlunos"
-                                        searchfields="Nome"
-                                        titlefield="Nome"
-                                        minlength="1"
-                                        inputclass="form-control"/>
-                                </div>
+                            <div class="form-group">
+                                <label for="codigo">Código</label>
+                                <input class="form-control" type="number" id="codigo" ng-model="pesquisa.idNotificacao" />
+                            </div>
                             
-                                <div class="form-group">
-                                    <label for="inicio">Início</label>
-                                    <input type="text" class="form-control" id="inicio" />
-                                </div>
+                            <div class="form-group">
+                                <label for="alunoP_value">Aluno</label>
+                                <angucomplete-alt
+                                    id="alunoP"
+                                    pause="100"
+                                    selected-object="AlunoPesquisa"
+                                    local-data="listaAlunos"
+                                    search-fields="Nome"
+                                    title-field="Nome"
+                                    minlength="1"
+                                    input-class="form-control"/>
+                            </div>
                             
-                                <div class="form-group">
-                                    <label for="fim">Fim</label>
-                                    <input type="text" class="form-control" id="fim" />
-                                </div>
+                            <div class="form-group">
+                                <label for="inicio">Início</label>
+                                <input type="text" class="form-control" id="inicio" />
+                            </div>
                             
-                                <button type="button" class="btn btn-primary right" ng-click="searchNotifications()">Pesquisar <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <div class="form-group">
+                                <label for="fim">Fim</label>
+                                <input type="text" class="form-control" id="fim" />
+                            </div>
                             
-                                <table class="table table-hover table-condensed">
+                            <button type="button" class="btn btn-primary" ng-click="filtrarNotificacoes()">Filtrar <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-warning" ng-click="limparPesquisa()">Limpar <span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+
+                            <div class="mt-1">
+                                <table class="table table-hover table-condensed table-bordered">
                                     <tr>
-                                        <th>Data</th>
-                                        <th>Título</th>
-                                        <th>Motivo</th>
-                                        <th>Resposta</th>
+                                        <th class="center">Aluno</th>
+                                        <th class="center">Data</th>
+                                        <th class="center">Motivo</th>
+                                        <th class="center">Ciente</th>
+                                        <th></th>
                                     </tr>
-                                    <tr class="tab-rows" ng-repeat="not in notifications track by not.id" ng-class="{'success' : not.aware, 'danger' : !not.aware}" ng-click="abrirModal(not)">
-                                        <td>{{not.date}}</td>
-                                        <td>{{not.title}}</td>
-                                        <td>{{not.reason}}</td>
-                                        <td>{{not.answer === null || not.answer === "" ? "--" : not.answer}}</td>
+                                    <tr class="tab-rows" ng-repeat="not in notificacoes track by not.IdNotificacao" ng-class="{'success' : not.ResponsavelCiente, 'danger' : !not.ResponsavelCiente}" ng-click="selecionarNotificacao(not)">
+                                        <td class="center">{{not.NomeAluno}}</td>
+                                        <td class="center">{{not.DataOcorrencia | date: 'dd/MM/yyyy hh:mm'}}</td>
+                                        <td class="center">{{not.DescricaoTipoNotificacao}}</td>
+                                        <td class="center">{{not.ResponsavelCiente || not.ResponsavelCiente ? "Sim" : "Não"}}</td>
+                                        <td class="center">
+                                            <button class="btn btn-xs btn-info">
+                                                <i class="glyphicon glyphicon-option-horizontal"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">{{notificacoes.length}} registros encontrados!</td>
                                     </tr>
                                 </table>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -110,41 +131,41 @@
             <div id="modal_notification" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" ng-class="{'bg-success' : notificacao.ResponsavelCiente, 'bg-danger' : !notificacao.ResponsavelCiente}">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">{{notification.title}}</h4>
+                            <h4 class="modal-title">{{notificacao.Assunto}} <span class="right mr-1">Código: {{notificacao.IdNotificacao}}</span></h4>
                         </div>
                         <div class="modal-body">
                             <div class="row-fluid">
                                 <div class="form-group">
                                     <label>Aluno</label>
-                                    <input type="text" class="form-control" ng-model="notification.student" disabled>
+                                    <input type="text" class="form-control" ng-model="notificacao.NomeAluno" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Motivo</label>
-                                    <select class="form-control mb-1_5" ng-options="item as item.label for item in items track by item.id" ng-model="notification.reason" disabled></select>
+                                    <input type="text" class="form-control" ng-model="notificacao.DescricaoTipoNotificacao" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Mensagem</label>
-                                    <textarea class="form-control mb-1_5" ng-model="notification.message" disabled></textarea>
+                                    <textarea class="form-control mb-1_5" rows="5" ng-model="notificacao.DescricaoNotificacao" disabled></textarea>
                                 </div>
-                                <div class="form-group" ng-if="notification.answer !== null" >
+                                <div class="form-group">
                                     <label>Resposta</label>
-                                    <textarea class="form-control mb-1_5" ng-model="notification.answer" disabled></textarea>
+                                    <textarea class="form-control mb-1_5" rows="5" disabled>{{notificacao.Resposta !== null && notificacao.Resposta !== '' ? notificacao.Resposta : '--'}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" ng-checked="notification.aware"> Ciente
+                                            <input type="checkbox" ng-checked="notificacao.ResponsavelCiente" disabled> Ciente
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
@@ -154,13 +175,14 @@
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../lib/angucomplete-master/js/angucomplete.js"></script>
+    <script src="../node_modules/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
     <script src="../lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="../lib/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="../bower_components/angular-notify/dist/angular-notify.min.js"></script>
 
     <script src="../resources/js/sicweb.js"></script>
     <script src="../services/http.func.js"></script>
-    <script src="../directives/app.loaded.js"></script>
+    <script src="../services/format.func.js"></script>
     <script src="../controllers/app.js"></script>
 </body>
 </html>

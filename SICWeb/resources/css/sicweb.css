@@ -1,3 +1,25 @@
+/*Vertical Divider*/
+.row.vdivide[class*='col-']:first-child:after {
+    background: #e0e0e0;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}
+
+/*Colors*/
+.bg-success {
+    background-color: #DFF0D8 !important;
+}
+
+.bg-danger {
+    background-color: #F2DEDE !important;
+}
+
 /*Helpers*/
 .hide {
     display: none !important;
@@ -21,10 +43,6 @@
 
 .right {
     float: right !important;
-}
-
-.divided {
-	border-right: 0.1rem solid #ccc;
 }
 
 /*-----------------------------*/
@@ -51,4 +69,12 @@ tr.tab-rows {
 
 .mr-1_9 {
     margin-right: 1.9rem;
+}
+
+.mr-1 {
+    margin-right: 1rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
 }

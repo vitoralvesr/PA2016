@@ -1,4 +1,4 @@
-angular.module('services', [])
+angular.module('HttpService', [])
 .service('$httpFunctions', function ($http) {
     // HTTP GET
     this.get = function (url, params, success, error) {
@@ -25,25 +25,4 @@ angular.module('services', [])
             error(ex);
         });
     };
-})
-.service('$format', function () {
-    this.formatDate = function (date, callback) {
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-
-        callback(year + '-' + (monthIndex + 1 < 10 ? '0' + (parseInt(monthIndex) + 1) : monthIndex + 1) + '-' + day);
-    };
-
-    this.parameters = function (filtros) {
-        var obj = {};
-
-        for(var attr in filtros){
-            if (filtros[attr] !== undefined && filtros[attr] !== null) {
-                obj[attr] = filtros[attr];
-            }
-        }
-
-        return obj;
-    }
 });

@@ -37,17 +37,16 @@
                         </select>
                     </label>
                 </div>
-                <div class="list">
-                    <label class="item item-input">
-                        <span class="input-label">Data</span>
-                        <input class="right" type="date" ng-model="dataBusca" ng-change="aplicarFiltros()">
-                    </label>
-                </div>
-                <!-- <onezone-datepicker datepicker-object="onezoneDatepicker">
+                <onezone-datepicker datepicker-object="dtInicial">
                     <button class="button button-block button-outline button-positive show-onezone-datepicker">
-                        {{onezoneDatepicker.date | date:'dd/MM/yyyy'}}
+                        Data inicial: {{dtInicial.date | date:'dd/MM/yyyy'}}
                     </button>
-                </onezone-datepicker> -->
+                </onezone-datepicker>
+                <onezone-datepicker datepicker-object="dtFinal">
+                    <button class="button button-block button-outline button-positive show-onezone-datepicker">
+                        Data final: {{dtFinal.date | date:'dd/MM/yyyy'}}
+                    </button>
+                </onezone-datepicker>
             </div>
         </div>
         <div class="card padding center concrete-bg" ng-show="!listaNotificacoes.length"><span>{{mensagemListaVazia}}</span></div>
@@ -65,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item item-divider center" ng-if="!not.ciente" style="font-size: 0.8rem">
+            <div class="item item-divider center" ng-if="!not.ResponsavelCiente" style="font-size: 0.8rem">
                 <span>Notificação não visualizada <i class="ion-information-circled"></i></span>
             </div>
         </div>
@@ -85,7 +84,7 @@
             <div class="card padding">
                 <div class="item item-divider" ng-class="{'assertive-bg light' : notSelect.IdTipoNotificacao === 1, 'balanced-bg' : notSelect.IdTipoNotificacao === 2, 'positive-bg' : notSelect.IdTipoNotificacao === 3}">
                     <div class="row">
-                        <div class="col col-50"><span>Tipo</span></div>
+                        <div class="col col-50"><span>{{notSelect.DescricaoTipoNotificacao}}</span></div>
                     </div>
                     <div class="row">
                         <div class="col col-50"><span>{{notSelect.Assunto}}</span></div>
