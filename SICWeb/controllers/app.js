@@ -44,7 +44,6 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     $scope.buscaNotificacao = function (param) {
         var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
 
-
         $httpFunctions.get(url, param,
             function (response) {
                 $scope.notificacoes = response.data;
@@ -59,28 +58,37 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
         );
     }
 
-    $scope.limparFormulario = function () {
+    $scope.limparFormulario = function (success, error) {
         $scope.$broadcast('angucomplete-alt:clearInput', 'aluno');
         $scope.formulario = novo_formulario();
-        notify({
-            message: 'Formulário limpo com sucesso!',
-            duration: 3000,
-            classes: ['success-notify'],
-            position: 'left'
-        });
+
+        if (success) {
+            success();
+        } else {
+            notify({
+                message: 'Formulário limpo com sucesso!',
+                duration: 3000,
+                classes: ['success-notify'],
+                position: 'left'
+            });
+        }
     }
-    $scope.limparPesquisa = function () {
+
+    $scope.limparPesquisa = function (success, error) {
         $scope.$broadcast('angucomplete-alt:clearInput', 'alunoP');
 
-        $('th.clear').click();
-
         $scope.pesquisa = nova_pesquisa();
-        notify({
-            message: 'Formulário limpo com sucesso!',
-            duration: 3000,
-            classes: ['success-notify'],
-            position: 'right'
-        });
+
+        if (success) {
+            success();
+        } else {
+            notify({
+                message: 'Formulário limpo com sucesso!',
+                duration: 3000,
+                classes: ['success-notify'],
+                position: 'right'
+            });
+        }
     }
 
     $scope.filtrarNotificacoes = function () {
@@ -96,6 +104,10 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
             });
         }
 
+        if ($scope.AlunoPesquisa !== null) {
+            $scope.pesquisa.idAluno = $scope.AlunoPesquisa.originalObject.IdAluno;
+        }
+
         $scope.buscaNotificacao($format.parameters($scope.pesquisa));
     }
 
@@ -107,7 +119,9 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
             $scope.formulario.DataOcorrencia = res;
         });
 
-        $httpFunctions.post(url, $scope.formulario,
+        console.log($scope.formulario);
+
+        $httpFunctions.post(url, $format.parameters($scope.filtros),
             function (response) {
                 notify({
                     message: 'Notificacao enviada com sucesso!',
@@ -116,7 +130,30 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
                     position: 'center'
                 });
 
-                $scope.limparFormulario();
+                $scope.limparFormulario(
+                    function () {
+                    }, function () {
+                        notify({
+                            message: 'Erro ao limpar o formulario!',
+                            duration: 3000,
+                            classes: ['danger-notify'],
+                            position: 'center'
+                        });
+                    }
+                );
+
+                $scope.limparPesquisa(
+                    function () {
+                    }, function () {
+                        notify({
+                            message: 'Erro ao limpar o formulario!',
+                            duration: 3000,
+                            classes: ['danger-notify'],
+                            position: 'center'
+                        });
+                    }
+                );
+
                 $scope.buscaNotificacao();
             }, function (error) {
                 notify({
@@ -132,6 +169,10 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     $scope.selecionarNotificacao = function (not) {
         $scope.notificacao = not;
         $('#modal_notification').modal();
+    }
+
+    $scope.abrirNovaNotificacao = function () {
+        $('#modal_nova_notificacao').modal();
     }
 
     $document.ready(function(){
@@ -151,7 +192,21 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
                 $scope.pesquisa.dtFinal = e.date;
             }
         });
+
+        $scope.buscaNotificacao();
     });
+
+    $scope.showOverlay = function (referenceId) {
+        bsLoadingOverlayService.start({
+          referenceId: referenceId
+        });
+    };
+
+    $scope.hideOverlay = function (referenceId) {
+        bsLoadingOverlayService.stop({
+            referenceId: referenceId
+        });
+    }
 });
 
 function novo_formulario () {

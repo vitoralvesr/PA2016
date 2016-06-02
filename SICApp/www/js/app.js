@@ -16,6 +16,20 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
         if(window.StatusBar) {
             StatusBar.styleDefault();
         }
+
+        // setInterval(function () {
+        //   $cordovaLocalNotification.add({
+        //     id: 1,
+        //     date: alarmTime,
+        //     message: "Ocorrência",
+        //     title: "Notificando",
+        //     autoCancel: true,
+        //     data: not
+        //   }).then(function () {
+        //       //after send
+        //   });
+        // }, 60000);
+
         cordova.plugins.notification.local.on("click", function (notification, state) {
             angular.element(document.getElementById('ctrl-lista')).scope().abrirNotificacao(angular.fromJson(notification.data));
         }, this)

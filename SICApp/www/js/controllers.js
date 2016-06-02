@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
     $scope.add = function() {
         var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
         var teste = {};
-        teste.idNotificacao = 13;
+        teste.idNotificacao = 17;
         var not = null;
 
         $httpFunctions.get(url, $format.parameters(teste),
