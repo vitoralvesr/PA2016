@@ -14,11 +14,11 @@ angular.module('HttpService', [])
     };
 
     // HTTP POST
-    this.post = function (url, data, success, error) {
+    this.post = function (uri, dt, success, error) {
         $http({
-            url: url,
+            url: uri,
             method: "POST",
-            data: data
+            data: dt
         }).then(function(response) {
             success(response);
         },function(ex) {

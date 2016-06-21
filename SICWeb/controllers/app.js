@@ -8,7 +8,7 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     $scope.notificacoes = [];
     
     $scope.buscaAlunos = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/aluno/ConsultarAluno/";
+        var url = "http://notificando.azurewebsites.net/api/aluno/ConsultarAluno/";
 
         $httpFunctions.get(url, {},
             function (response) {
@@ -25,7 +25,7 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     }
 
     $scope.buscaTiposNotificacao = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/tipoNotificacao/ConsultarTipoNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/tipoNotificacao/ConsultarTipoNotificacao/";
 
         $httpFunctions.get(url, {},
             function (response) {
@@ -42,7 +42,7 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     }
 
     $scope.buscaNotificacao = function (param) {
-        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
 
         $httpFunctions.get(url, param,
             function (response) {
@@ -92,19 +92,19 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     }
 
     $scope.filtrarNotificacoes = function () {
-        if ($scope.pesquisa.dtInicial !== null) {
+        if ($scope.pesquisa.dtInicial !== null && $scope.pesquisa.dtInicial !== undefined) {
             $format.date($scope.pesquisa.dtInicial, 'yyyy-MM-dd', function (res) {
                 $scope.pesquisa.dtInicial = res;
             });
         }
 
-        if ($scope.pesquisa.dtFinal !== null) {
+        if ($scope.pesquisa.dtFinal !== null && $scope.pesquisa.dtFinal !== undefined) {
             $format.date($scope.pesquisa.dtFinal, 'yyyy-MM-dd', function (res) {
                 $scope.pesquisa.dtFinal = res;
             });
         }
 
-        if ($scope.AlunoPesquisa !== null) {
+        if ($scope.AlunoPesquisa !== undefined && $scope.AlunoPesquisa !== null) {
             $scope.pesquisa.idAluno = $scope.AlunoPesquisa.originalObject.IdAluno;
         }
 
@@ -112,7 +112,7 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     }
 
     $scope.enviarNotificacao = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/EnviarNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/notificacao/EnviarNotificacao/";
 
         $scope.formulario.IdAluno = $scope.AlunoSelecionado.originalObject.IdAluno;
         $format.date(new Date(), 'yyyy-MM-dd', function (res) {
@@ -121,7 +121,7 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
 
         console.log($scope.formulario);
 
-        $httpFunctions.post(url, $format.parameters($scope.filtros),
+        $httpFunctions.post(url, $scope.formulario,
             function (response) {
                 notify({
                     message: 'Notificacao enviada com sucesso!',

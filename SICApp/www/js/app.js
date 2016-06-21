@@ -8,7 +8,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'starter.directives', 'onezone-datepicker'])
 
-.run(function($ionicPlatform, $rootScope, $timeout) {
+.run(function($ionicPlatform, $rootScope, $timeout, $httpFunctions, $format, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
         if(window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,22 +17,56 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
             StatusBar.styleDefault();
         }
 
-        // setInterval(function () {
-        //   $cordovaLocalNotification.add({
-        //     id: 1,
-        //     date: alarmTime,
-        //     message: "Ocorrência",
-        //     title: "Notificando",
-        //     autoCancel: true,
-        //     data: not
-        //   }).then(function () {
-        //       //after send
-        //   });
-        // }, 60000);
+        var url = '';
+
+        setInterval(function () {
+          url = "http://notificando.azurewebsites.net/api/notificacao/ConsultarNotificacaoNaoEnviada/";
+          $httpFunctions.get(url, $format.parameters({idResponsavel : 1}),
+              function (response) {
+                  not = response.data;
+
+                  if (not !== undefined && not !== null) {
+                    $cordovaLocalNotification.isScheduled(not.IdNotificacao).then(function(isScheduled) {
+                        if (!isScheduled) {
+                          var storage = window.localStorage;
+                          var value = storage.getItem(not.IdNotificacao);
+
+                          if (value === undefined || value === null) {
+                            storage.setItem(not.IdNotificacao, true);
+                            var alarmTime = new Date();
+                            alarmTime.setMinutes(alarmTime.getMinutes() + 0.1);
+                            $cordovaLocalNotification.add({
+                                id: not.IdNotificacao,
+                                date: alarmTime,
+                                message: "Nova notificação! Clique para visualizar.",
+                                title: "Notificando",
+                                autoCancel: true,
+                                data: not
+                            }).then(function () {
+                                url = "http://notificando.azurewebsites.net/api/notificacao/RegistrarEnvioNotificacao/";
+
+                                $httpFunctions.post(url, { idNotificacao : not.IdNotificacao},
+                                    function (response) {
+                                    },
+                                    function (error) {
+                                      console.log(angular.toJson(error));
+                                    }
+                                );
+                            });
+                          }
+                        }
+                    });
+                  }
+              },
+              function (error) {
+                  console.log(angular.toJson(error));
+              }
+          );
+        }, 5000);
 
         cordova.plugins.notification.local.on("click", function (notification, state) {
             angular.element(document.getElementById('ctrl-lista')).scope().abrirNotificacao(angular.fromJson(notification.data));
-        }, this)
+        }, this);
     });
 })
 

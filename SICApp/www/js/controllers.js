@@ -3,47 +3,12 @@
 angular.module('starter.controllers', [])
 .controller('ListaCtrl', function($scope, $http, $document, $window, $ionicModal, $httpFunctions, $format, $timeout, $cordovaLocalNotification) {
     //VAI VIR DO LOGIN
-    $scope.IdResponsavel = 3;
+    $scope.IdResponsavel = 1;
 
     $scope.filtros = {};
     $scope.respostaNotificacao = nova_reposta();
 
     $scope.mensagemListaVazia = 'Nenhuma notificação foi encontrada!';
-
-    $scope.add = function() {
-        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
-        var teste = {};
-        teste.idNotificacao = 17;
-        var not = null;
-
-        $httpFunctions.get(url, $format.parameters(teste),
-            function (response) {
-                not = response.data[0];
-                
-                var alarmTime = new Date();
-                alarmTime.setMinutes(alarmTime.getMinutes() + 0.1);
-                $cordovaLocalNotification.add({
-                    id: 1,
-                    date: alarmTime,
-                    message: "Ocorrência",
-                    title: "Notificando",
-                    autoCancel: true,
-                    data: not
-                }).then(function () {
-                    //after send
-                });
-            },
-            function (error) {
-                console.log(error);
-            }
-        );
-    };
- 
-    $scope.isScheduled = function() {
-        $cordovaLocalNotification.isScheduled(1).then(function(isScheduled) {
-            alert("Notification 1 Scheduled: " + isScheduled);
-        });
-    }
 
     $scope.dtInicial = {
         date: new Date(), // MANDATORY
@@ -76,11 +41,12 @@ angular.module('starter.controllers', [])
     };
 
     $scope.aplicarFiltros = function () {
+        console.log(angular.toJson($format.parameters($scope.filtros)));
         $scope.buscaNotificacoes($format.parameters($scope.filtros));
     };
 
     $scope.buscaTiposNotificacao = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/tipoNotificacao/ConsultarTipoNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/tipoNotificacao/ConsultarTipoNotificacao/";
 
         $httpFunctions.get(url, {},
             function (response) {
@@ -93,14 +59,14 @@ angular.module('starter.controllers', [])
     };
 
     $scope.buscaAlunos = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/aluno/ConsultarAluno/";
+        var url = "http://notificando.azurewebsites.net/api/aluno/ConsultarAluno/";
         var params = {
             idResponsavel: $scope.IdResponsavel
         };
 
         $httpFunctions.get(url, params,
             function (response) {
-                $scope.listaAlunos = response.data;
+                $scope.listaAlunos = response.data
             },
             function (error) {
                 console.log(error);
@@ -109,7 +75,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.buscaNotificacoes = function (params) {
-        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/notificacao/ConsultarNotificacao/";
 
         $httpFunctions.get(url, params,
             function (response) {
@@ -160,21 +126,24 @@ angular.module('starter.controllers', [])
     };
 
     $scope.enviarReposta = function () {
-        var url = "http://notificandoapp.azurewebsites.net/api/notificacao/ResponderNotificacao/";
+        var url = "http://notificando.azurewebsites.net/api/notificacao/ResponderNotificacao/";
 
         $httpFunctions.post(url, $scope.respostaNotificacao,
             function (response) {
                 console.log(response);
+
+                $scope.modalObs.hide();
+                $scope.modal.hide();
+                $scope.respostaNotificacao = nova_reposta();
+
+                setTimeout(function () {
+                    $scope.aplicarFiltros();
+                }, 500);
             },
             function (error) {
                 console.log(error);
             }
         );
-
-        $scope.modalObs.hide();
-        $scope.modal.hide();
-        $scope.respostaNotificacao = nova_reposta();
-        $scope.aplicarFiltros();
     }
 
     $scope.mudaData = function () {
