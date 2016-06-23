@@ -17,6 +17,7 @@ angular.module('starter.controllers', [])
         daysOfTheWeek: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
         showTodayButton: true,
         callback: function(value){
+            console.log(value);
             $format.formatDate(value, function (val) {
                 $scope.filtros.dtInicial = val;
             });
@@ -82,7 +83,7 @@ angular.module('starter.controllers', [])
                 $scope.listaNotificacoes = response.data;
             },
             function (error) {
-                console.log(error);
+                console.log(angular.toJson(error));
             }
         );
     };

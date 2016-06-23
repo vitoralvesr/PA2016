@@ -32,7 +32,7 @@ angular.module('starter.services', [])
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
 
-        callback(year + '-' + (monthIndex + 1 < 10 ? '0' + (parseInt(monthIndex) + 1) : monthIndex + 1) + '-' + day);
+        callback(year + '-' + (monthIndex + 1 < 10 ? '0' + (parseInt(monthIndex) + 1) : monthIndex + 1) + '-' + (day < 10 ? '0' + (parseInt(day)) : day));
     };
 
     this.parameters = function (filtros) {

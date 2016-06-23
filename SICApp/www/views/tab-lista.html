@@ -54,8 +54,8 @@
             </div>
         </div>
         <div class="card padding center concrete-bg" ng-show="!listaNotificacoes.length"><span>{{mensagemListaVazia}}</span></div>
-        <div class="card padding" ng-repeat="not in listaNotificacoes | orderBy: 'ResponsavelCiente'" ng-class="{'assertive-bg' : not.IdTipoNotificacao === 1, 'balanced-bg' : not.IdTipoNotificacao === 2, 'positive-bg' : not.IdTipoNotificacao === 3}" ng-click="abrirNotificacao(not)">
-            <div class="item item-divider" ng-class="{'assertive-bg' : not.IdTipoNotificacao === 1, 'balanced-bg' : not.IdTipoNotificacao === 2, 'positive-bg' : not.IdTipoNotificacao === 3}">
+        <div class="card padding" ng-repeat="not in listaNotificacoes | orderBy: 'ResponsavelCiente'" ng-class="{'balanced-bg' : not.IdTipoNotificacao === 1 || not.IdTipoNotificacao === 7 || not.IdTipoNotificacao === 4, 'assertive-bg' : not.IdTipoNotificacao === 2 || not.IdTipoNotificacao === 3 || not.IdTipoNotificacao === 6, 'positive-bg' : not.IdTipoNotificacao === 5 || not.IdTipoNotificacao === 8}" ng-click="abrirNotificacao(not)">
+            <div class="item item-divider" ng-class="{'balanced-bg' : not.IdTipoNotificacao === 1 || not.IdTipoNotificacao === 7 || not.IdTipoNotificacao === 4 , 'assertive-bg' : not.IdTipoNotificacao === 2 || not.IdTipoNotificacao === 3 || not.IdTipoNotificacao === 6, 'positive-bg' : not.IdTipoNotificacao === 5 || not.IdTipoNotificacao === 8}">
                 <div class="row card-header">
                     <div class="col col-67 truncate"><span>{{not.Assunto}}</span></div>
                     <div class="col col-33"><span class="right">{{not.DataOcorrencia | date:'dd/MM/yyyy'}}</span></div>
@@ -86,13 +86,13 @@
         </ion-header-bar>
         <ion-content class="padding">
             <div class="card padding">
-                <div class="item item-divider" ng-class="{'assertive-bg light' : notSelect.IdTipoNotificacao === 1, 'balanced-bg' : notSelect.IdTipoNotificacao === 2, 'positive-bg' : notSelect.IdTipoNotificacao === 3}">
+                <div class="item item-divider" ng-class="{'balanced-bg' : notSelect.IdTipoNotificacao === 1 || notSelect.IdTipoNotificacao === 7 || notSelect.IdTipoNotificacao === 4, 'assertive-bg' : notSelect.IdTipoNotificacao === 2 || notSelect.IdTipoNotificacao === 3 || notSelect.IdTipoNotificacao === 6, 'positive-bg' : notSelect.IdTipoNotificacao === 5 || notSelect.IdTipoNotificacao === 8}">
                     <div class="row">
-                        <div class="col col-50"><span>{{notSelect.DescricaoTipoNotificacao}}</span></div>
+                        <div class="col col-67"><pre>{{notSelect.DescricaoTipoNotificacao}}</pre></div>
+                        <div class="col col-33"><span class="right">{{notSelect.DataOcorrencia | date:'dd/MM/yyyy'}}</span></div>
                     </div>
                     <div class="row">
-                        <div class="col col-50"><span>{{notSelect.Assunto}}</span></div>
-                        <div class="col col-50"><span class="right">{{notSelect.DataOcorrencia | date:'dd/MM/yyyy'}}</span></div>
+                        <div class="col"><pre>{{notSelect.Assunto}}</pre></div>
                     </div>
                 </div>
                 <div class="item item-text-wrap">
