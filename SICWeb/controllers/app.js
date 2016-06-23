@@ -92,6 +92,13 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
     }
 
     $scope.filtrarNotificacoes = function () {
+        if ($scope.AlunoPesquisa !== undefined && $scope.AlunoPesquisa !== null) {
+            $scope.pesquisa.idAluno = $scope.AlunoPesquisa.originalObject.IdAluno;
+        } else if($('#alunoP_value').val() !== undefined && $('#alunoP_value').val() !== null) {
+            $scope.$broadcast('angucomplete-alt:clearInput', 'alunoP');
+            $('#alunoP_value').val('');
+        }
+
         if ($scope.pesquisa.dtInicial !== null && $scope.pesquisa.dtInicial !== undefined) {
             $format.date($scope.pesquisa.dtInicial, 'yyyy-MM-dd', function (res) {
                 $scope.pesquisa.dtInicial = res;
@@ -102,10 +109,6 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
             $format.date($scope.pesquisa.dtFinal, 'yyyy-MM-dd', function (res) {
                 $scope.pesquisa.dtFinal = res;
             });
-        }
-
-        if ($scope.AlunoPesquisa !== undefined && $scope.AlunoPesquisa !== null) {
-            $scope.pesquisa.idAluno = $scope.AlunoPesquisa.originalObject.IdAluno;
         }
 
         $scope.buscaNotificacao($format.parameters($scope.pesquisa));
@@ -192,6 +195,12 @@ angular.module('SICWeb', ['angucomplete-alt', 'cgNotify', 'HttpService', 'Format
                 $scope.pesquisa.dtFinal = e.date;
             }
         });
+
+        $('#modal_nova_notificacao').on('hidden.bs.modal', function (e) {
+            $scope.formulario = novo_formulario();
+
+            $scope.$broadcast('angucomplete-alt:clearInput', 'aluno');
+        })
 
         $scope.buscaNotificacao();
     });
