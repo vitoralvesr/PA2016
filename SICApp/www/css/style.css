@@ -72,3 +72,8 @@ div.truncate{
 .item-select select {
   width: 85%;
 }
+
+.white-text {
+  color: white !important;
+  font-weight: bold;
+}
